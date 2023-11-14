@@ -17,17 +17,17 @@ def theory():
 
 @app.route('/school_math/linear_equations')
 def linear_equations():
-    return 'math'
+    return render_template('in_dev.html', page_name='Линейные уравнения')
 
 
 @app.route('/school_math/quadratic_equations')
-def linear_equations():
-    return 'math'
+def quadratic_equations():
+    return render_template('in_dev.html', page_name='Квадратные уравнения')
 
 
 @app.route('/school_math/systems_of_linear_equations')
-def linear_equations():
-    return 'math'
+def systems_of_linear_equations():
+    return render_template('in_dev.html', page_name='Системы квадратных уравнений')
 
 
 @app.route('/higher_math/integrals')
@@ -37,9 +37,9 @@ def integrals():
 
 @app.route('/higher_math/derivatives')
 def derivatives():
-    pass
+    return render_template('in_dev.html', page_name='Производные')
 
 
 @app.route('/higher_math/matrices')
 def matrices():
-    pass
+    return render_template('in_dev.html', page_name='Матрицы')
