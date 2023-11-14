@@ -1,4 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
-<div></div>
+<div class="container mt-5">
+  <div class="text-center">
+    <h1 class="display-4">Добро пожаловать в математическое веб-приложение</h1>
+    <p class="lead">Изучайте и практикуйтесь в математике с нашим веб-приложением. Мы предоставляем удобные инструменты и ресурсы для обучения.</p>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <div class="card">
+        <img src="https://via.placeholder.com/600" alt="Математическое изображение 1" class="card-img-top">
+        <div class="card-body">
+          <h2 class="card-title">Школьная алгебра</h2>
+          <h5 class="card-subtitle mb-2 text-muted">Задачи на темы из школьной алгебры</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Линейные уравнения</li>
+            <li class="list-group-item">Квадратные уравнения</li>
+            <li class="list-group-item">Системы линейных уравнений</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <img src="https://via.placeholder.com/600" alt="Математическое изображение 2" class="card-img-top">
+        <div class="card-body">
+          <h2 class="card-title">Геометрия</h2>
+          <h5 class="card-subtitle mb-2 text-muted">Задачи на темы из высшей алгебры</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Определенные и неопределенные интегралы</li>
+            <li class="list-group-item">Производные</li>
+            <li class="list-group-item">Матрицы</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
