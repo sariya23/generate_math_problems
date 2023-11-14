@@ -36,6 +36,7 @@ def integrals():
     return render_template('higher_math/integrals.html')
 
 
+# TODO: вынести генерацию в функцию или класс.
 @app.route('/generate_integrals', methods=['POST'])
 def generate_integrals():
     data = request.form.get('data')
@@ -50,22 +51,23 @@ def generate_integrals():
             integral = ''
             for i, constant in enumerate(constants):
                 integral = data.replace(constant, str(randint(*bounds)))
-            print(integral)
             latex_equations.append(fr'\int {latex(eval(integral))}  \,dx')
-
+        print('eqs: ', latex_equations)
         return render_template('higher_math/integrals.html', latex_equations=latex_equations, error=None)
     except Exception as e:
         return render_template('higher_math/integrals.html', latex_equations=None, error=str(e))
 
 
+# TODO: починить скачивание в .tex.
+# TODO: вынести в отдельную функцию.
 @app.route('/download_tex', methods=['POST'])
 def download_tex():
     try:
-        latex_integrals = request.form.getlist('latex_integrals')
-
+        latex_equations = eval(request.form.getlist('latex_equations')[0])
+        print(type(latex_equations), len(latex_equations))
         tex_content = ""
-        for integral in latex_integrals:
-            tex_content += f"\\[ \\int{integral} \\,dx \\]\n"
+        for integral in latex_equations:
+            tex_content += f'{integral}\\\\\n'
 
         with open('integrals.tex', 'w') as file:
             file.write(tex_content)
@@ -73,6 +75,7 @@ def download_tex():
         return send_file('integrals.tex', as_attachment=True, download_name='integrals.tex')
     except Exception as e:
         return str(e)
+
 
 @app.route('/higher_math/derivatives')
 def derivatives():
