@@ -1,6 +1,7 @@
 from flask import Flask, request, send_file
 from flask import render_template
-from sympy import sympify, latex
+from sympy import sympify, latex, symbols
+from random import randint
 
 app = Flask(__name__)
 
@@ -38,10 +39,19 @@ def integrals():
 @app.route('/generate_integrals', methods=['POST'])
 def generate_integrals():
     data = request.form.get('data')
+    constants = request.form.get('constants', '').split(',')
+    bounds = list(map(int, request.form.get('bounds', '').split(',')))
     num_expressions = int(request.form.get('numExpressions', 1))
+    latex_equations = []
+    x = symbols('x')
 
     try:
-        latex_equations = [fr'\int {latex(data)}  \,dx' for _ in range(num_expressions)]
+        for _ in range(num_expressions):
+            integral = ''
+            for i, constant in enumerate(constants):
+                integral = data.replace(constant, str(randint(*bounds)))
+            print(integral)
+            latex_equations.append(fr'\int {latex(eval(integral))}  \,dx')
 
         return render_template('higher_math/integrals.html', latex_equations=latex_equations, error=None)
     except Exception as e:
