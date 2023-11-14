@@ -3,7 +3,7 @@
 <div class="container mt-5">
     <div class="text-center">
         <h1 class="display-4">Генерация LaTeX</h1>
-        <p class="lead">Введите математическое выражение и нажмите "Сгенерировать"</p>
+        <p class="lead">Введите математическое выражение и количество выражений, которые нужно сгенерировать, затем нажмите "Сгенерировать"</p>
     </div>
 
     <div class="row mt-5">
@@ -13,11 +13,20 @@
                     <label for="dataInput" class="form-label">Введите математическое выражение:</label>
                     <input type="text" class="form-control" name="data" id="dataInput" placeholder="Например: 2x + 34" required>
                 </div>
+                <div class="mb-3">
+                    <label for="numExpressions" class="form-label">Количество выражений:</label>
+                    <input type="number" class="form-control" name="numExpressions" id="numExpressions" placeholder="Введите количество выражений" required>
+                </div>
                 <button type="submit" class="btn btn-primary">Сгенерировать LaTeX</button>
             </form>
             <div id="result" class="mt-3">
-                {% if latex_equation %}
-                    <p>Сгенерированное уравнение в LaTeX: \[ {{ latex_equation }} \]</p>
+                {% if latex_equations %}
+                    <p>Сгенерированные уравнения в LaTeX:</p>
+                    <ul>
+                        {% for latex_equation in latex_equations %}
+                            <li>\[ {{ latex_equation }} \]</li>
+                        {% endfor %}
+                    </ul>
                 {% endif %}
                 {% if error %}
                     <p style="color: red;">Ошибка: {{ error }}</p>

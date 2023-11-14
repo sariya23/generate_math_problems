@@ -38,13 +38,14 @@ def integrals():
 @app.route('/generate_integrals', methods=['POST'])
 def generate_integrals():
     data = request.form.get('data')
-    print(data)
-    try:
-        latex_equation = latex(data)
+    num_expressions = int(request.form.get('numExpressions', 1))
 
-        return render_template('higher_math/integrals.html', latex_equation=latex_equation, error=None)
+    try:
+        latex_equations = [latex(data) for _ in range(num_expressions)]
+
+        return render_template('higher_math/integrals.html', latex_equations=latex_equations, error=None)
     except Exception as e:
-        return render_template('higher_math/integrals.html', latex_equation=None, error=str(e))
+        return render_template('higher_math/integrals.html', latex_equations=None, error=str(e))
 
 
 @app.route('/higher_math/derivatives')
