@@ -10,11 +10,25 @@ def hello_world():
     return render_template('index.html')
 
 
-@app.route('/math')
-def math():
+@app.route('/school_math')
+def school_math():
     return 'math'
 
 
-@app.route('/math/integrals')
-def integrals():
+@app.route('/theory')
+def theory():
     return 'Integrals'
+
+
+@app.route('/higher_math/integrals')
+def integrals():
+    pass
+
+
+@app.route('/higher_math/derivatives')
+def derivatives():
+    pass
+
+@app.route('/higher_math/matrices')
+def matrices():
+    pass
