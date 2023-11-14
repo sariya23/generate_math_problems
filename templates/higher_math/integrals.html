@@ -1,1 +1,29 @@
 {% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4">Генерация LaTeX</h1>
+        <p class="lead">Введите математическое выражение и нажмите "Сгенерировать"</p>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-6 mx-auto">
+            <form id="dataForm" method="POST" action="/generate_integrals">
+                <div class="mb-3">
+                    <label for="dataInput" class="form-label">Введите математическое выражение:</label>
+                    <input type="text" class="form-control" name="data" id="dataInput" placeholder="Например: 2x + 34" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Сгенерировать LaTeX</button>
+            </form>
+            <div id="result" class="mt-3">
+                {% if latex_equation %}
+                    <p>Сгенерированное уравнение в LaTeX: \[ {{ latex_equation }} \]</p>
+                {% endif %}
+                {% if error %}
+                    <p style="color: red;">Ошибка: {{ error }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

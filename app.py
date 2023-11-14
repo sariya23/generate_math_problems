@@ -1,6 +1,6 @@
-from flask import Flask
+from flask import Flask, request
 from flask import render_template
-
+from sympy import sympify, latex
 
 app = Flask(__name__)
 
@@ -33,6 +33,18 @@ def systems_of_linear_equations():
 @app.route('/higher_math/integrals')
 def integrals():
     return render_template('higher_math/integrals.html')
+
+
+@app.route('/generate_integrals', methods=['POST'])
+def generate_integrals():
+    data = request.form.get('data')
+    print(data)
+    try:
+        latex_equation = latex(data)
+
+        return render_template('higher_math/integrals.html', latex_equation=latex_equation, error=None)
+    except Exception as e:
+        return render_template('higher_math/integrals.html', latex_equation=None, error=str(e))
 
 
 @app.route('/higher_math/derivatives')
