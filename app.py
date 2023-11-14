@@ -32,7 +32,7 @@ def systems_of_linear_equations():
 
 @app.route('/higher_math/integrals')
 def integrals():
-    pass
+    return render_template('higher_math/integrals.html')
 
 
 @app.route('/higher_math/derivatives')
