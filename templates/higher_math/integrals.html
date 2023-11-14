@@ -2,8 +2,9 @@
 {% block content %}
 <div class="container mt-5">
     <div class="text-center">
-        <h1 class="display-4">Генерация LaTeX</h1>
-        <p class="lead">Введите математическое выражение и количество выражений, которые нужно сгенерировать, затем
+        <h1 class="display-4">Генерация неопределенных интегралов</h1>
+        <p class="lead">Введите шаблон математическое выражение и количество выражений, которые нужно сгенерировать,
+            затем
             нажмите "Сгенерировать"</p>
     </div>
 
@@ -11,16 +12,27 @@
         <div class="col-md-6 mx-auto">
             <form id="dataForm" method="POST" action="/generate_integrals">
                 <div class="mb-3">
-                    <label for="dataInput" class="form-label">Введите математическое выражение:</label>
-                    <input type="text" class="form-control" name="data" id="dataInput" placeholder="Например: 2x + 34"
+                    <label for="dataInput" class="form-label">Введите шаблон математического выражения:</label>
+                    <input type="text" class="form-control" name="data" id="dataInput" placeholder="Например: a*x + b - x ** c"
                            required>
                 </div>
                 <div class="mb-3">
-                    <label for="numExpressions" class="form-label">Количество выражений:</label>
-                    <input type="number" class="form-control" name="numExpressions" id="numExpressions"
-                           placeholder="Введите количество выражений" required>
+                    <label for="constantsInput" class="form-label">Введите литералы констант (через запятую):</label>
+                    <input type="text" class="form-control" name="constants" id="constantsInput"
+                           placeholder="Например: a,b,c">
                 </div>
-                <button type="submit" class="btn btn-primary">Сгенерировать LaTeX</button>
+                <div class="mb-3">
+                    <label for="boundsInput" class="form-label">Введите граничные значения для констант (через
+                        запятую). Значения констант будут от 1 до 100 включительно.</label>
+                    <input type="text" class="form-control" name="bounds" id="boundsInput"
+                           placeholder="Например: 1,100">
+                </div>
+                <div class="mb-3">
+                    <label for="numExpressions" class="form-label">Количество интегралов:</label>
+                    <input type="number" class="form-control" name="numExpressions" id="numExpressions"
+                           placeholder="Введите количество интегралов" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Сгенерировать интегралы</button>
             </form>
             <div id="result" class="mt-3">
                 {% if latex_equations %}
