@@ -41,7 +41,7 @@ def generate_integrals():
     num_expressions = int(request.form.get('numExpressions', 1))
 
     try:
-        latex_equations = [latex(data) for _ in range(num_expressions)]
+        latex_equations = [fr'\int {latex(data)}  \,dx' for _ in range(num_expressions)]
 
         return render_template('higher_math/integrals.html', latex_equations=latex_equations, error=None)
     except Exception as e:
