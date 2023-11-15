@@ -15,8 +15,13 @@ class Integral:
 
     def generate_integral_expression(self, bounds: list[int]):
         self.__replace_constant_names_to_random_value(bounds)
-        integral = fr'\int {latex(self.pattern)}  \,d{self.symbol}'
+        integral = self.pattern
         return integral
+
+    def generate_latex_integral_expression(self, bounds: list[int]):
+        self.__replace_constant_names_to_random_value(bounds)
+        latex_integral = fr'\int {latex(self.pattern)}  \,d{self.symbol}'
+        return latex_integral
 
 
 if __name__ == '__main__':
