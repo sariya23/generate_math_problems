@@ -1,7 +1,5 @@
 from flask import Flask, request, send_file
 from flask import render_template
-from sympy import latex, symbols
-from random import randint
 
 from utils.integral import Integral
 
@@ -39,8 +37,8 @@ def integrals():
     return render_template('higher_math/integrals.html')
 
 
+# TODO: добавить обработку ошибок
 # TODO: пофиксить ошибку Ошибка: name 'a' is not defined
-# TODO: вынести генерацию в функцию или класс.
 @app.route('/generate_integrals', methods=['POST'])
 def generate_integrals():
     data = request.form.get('data')
