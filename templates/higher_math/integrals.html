@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-5">
-    <div class="text-center">
-        <h1 class="display-4">Генерация неопределенных интегралов</h1>
-        <p class="lead">Введите шаблон математическое выражение и количество выражений, которые нужно сгенерировать,
-            затем
-            нажмите "Сгенерировать"</p>
-    </div>
 
+    {% include 'higher_math/integral_header.html' %}
     <div class="row mt-5">
         <div class="col-md-6 mx-auto">
             <form id="dataForm" method="POST" action="/generate_integrals">

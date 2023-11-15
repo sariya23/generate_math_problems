@@ -55,7 +55,7 @@ def generate_integrals():
         return render_template('higher_math/integrals.html', latex_equations=None, error=str(e))
 
 
-# TODO: починить скачивание в .tex.
+# TODO: Конвертировать .tex in .pdf
 # TODO: вынести в отдельную функцию.
 @app.route('/download_tex', methods=['POST'])
 def download_tex():
