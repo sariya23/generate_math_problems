@@ -57,10 +57,12 @@ def generate_integrals():
 
 # TODO: Конвертировать .tex in .pdf
 # TODO: вынести в отдельную функцию.
-@app.route('/download_tex', methods=['POST'])
+@app.route('/download', methods=['POST'])
 def download_tex():
     try:
-        latex_equations = eval(request.form.getlist('latex_equations')[0])
+        file_format = request.form.getlist('file_format')[0]
+        latex_equations = request.form.get('latex_equations').split('|')
+        print(request.form, file_format, latex_equations, sep='\n')
         tex_content = ""
         for integral in latex_equations:
             tex_content += f'{integral}\\\\\n'

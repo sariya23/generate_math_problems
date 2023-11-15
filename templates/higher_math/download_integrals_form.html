@@ -1,4 +1,12 @@
-<form id="downloadForm" method="POST" action="/download_tex">
-    <input type="hidden" name="latex_equations" value="{{ latex_equations }}">
-    <button type="submit" class="btn btn-success">Скачать в формате .tex</button>
+<label for="fileFormatSelect" class="form-label">Выберите формат, в котором скачать задачи</label>
+<form id="downloadForm" method="POST" action="/download">
+    <div class="input-group">
+        <input type="hidden" name="latex_equations" value="{{ '|'.join(latex_equations)|safe }}">
+        <select class="form-select" name="file_format" id="fileFormatSelect" onchange="submitForm()">
+            <option value="pdf">PDF</option>
+            <option value="docx">DOCX</option>
+            <option value="tex">TEX</option>
+        </select>
+        <button type="submit" class="btn btn-success">Скачать</button>
+    </div>
 </form>
