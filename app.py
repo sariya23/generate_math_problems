@@ -1,7 +1,10 @@
 from flask import Flask, request, send_file
 from flask import render_template
-from sympy import sympify, latex, symbols
+from sympy import latex, symbols
 from random import randint
+
+from utils.integral import Integral
+
 
 app = Flask(__name__)
 
@@ -45,14 +48,11 @@ def generate_integrals():
     bounds = list(map(int, request.form.get('bounds', '').split(',')))
     num_expressions = int(request.form.get('numExpressions', 1))
     latex_equations = []
-    x = symbols('x')
 
     try:
         for _ in range(num_expressions):
-            integral = ''
-            for i, constant in enumerate(constants):
-                integral = data.replace(constant, str(randint(*bounds)))
-            latex_equations.append(fr'\int {latex(eval(integral))}  \,dx')
+            integral = Integral(data, constants).generate_latex_integral_expression(bounds)
+            latex_equations.append(integral)
         return render_template('higher_math/integrals.html', latex_equations=latex_equations, error=None)
     except Exception as e:
         return render_template('higher_math/integrals.html', latex_equations=None, error=str(e))
