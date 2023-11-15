@@ -38,7 +38,6 @@ def integrals():
 
 
 # TODO: добавить обработку ошибок
-# TODO: пофиксить ошибку Ошибка: name 'a' is not defined
 @app.route('/generate_integrals', methods=['POST'])
 def generate_integrals():
     data = request.form.get('data')
