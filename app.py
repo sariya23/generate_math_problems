@@ -36,6 +36,7 @@ def integrals():
     return render_template('higher_math/integrals.html')
 
 
+# TODO: пофиксить ошибку Ошибка: name 'a' is not defined
 # TODO: вынести генерацию в функцию или класс.
 @app.route('/generate_integrals', methods=['POST'])
 def generate_integrals():
@@ -52,7 +53,6 @@ def generate_integrals():
             for i, constant in enumerate(constants):
                 integral = data.replace(constant, str(randint(*bounds)))
             latex_equations.append(fr'\int {latex(eval(integral))}  \,dx')
-        print('eqs: ', latex_equations)
         return render_template('higher_math/integrals.html', latex_equations=latex_equations, error=None)
     except Exception as e:
         return render_template('higher_math/integrals.html', latex_equations=None, error=str(e))
@@ -64,7 +64,6 @@ def generate_integrals():
 def download_tex():
     try:
         latex_equations = eval(request.form.getlist('latex_equations')[0])
-        print(type(latex_equations), len(latex_equations))
         tex_content = ""
         for integral in latex_equations:
             tex_content += f'{integral}\\\\\n'
