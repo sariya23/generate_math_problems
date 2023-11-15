@@ -13,7 +13,8 @@
             <form id="dataForm" method="POST" action="/generate_integrals">
                 <div class="mb-3">
                     <label for="dataInput" class="form-label">Введите шаблон математического выражения:</label>
-                    <input type="text" class="form-control" name="data" id="dataInput" placeholder="Например: a*x + b - x ** c"
+                    <input type="text" class="form-control" name="data" id="dataInput"
+                           placeholder="Например: a*x + b - x ** c"
                            required>
                 </div>
                 <div class="mb-3">
@@ -41,11 +42,23 @@
                     <button type="submit" class="btn btn-success">Скачать в формате .tex</button>
                 </form>
                 <p>Сгенерированные уравнения в LaTeX:</p>
-                <ul>
-                    {% for latex_equation in latex_equations %}
-                    <li>\[ {{ latex_equation }} \]</li>
-                    {% endfor %}
-                </ul>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            {% for i in range(latex_equations|length // 2) %}
+                            <li>\[ {{ latex_equations[i] }} \]</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            {% for i in range(latex_equations|length // 2, latex_equations|length) %}
+                            <li>\[ {{ latex_equations[i] }} \]</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
                 {% endif %}
                 {% if error %}
                 <p style="color: red;">Ошибка: {{ error }}</p>
