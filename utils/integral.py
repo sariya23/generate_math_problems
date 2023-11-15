@@ -20,10 +20,12 @@ class Integral:
 
     def generate_latex_integral_expression(self, bounds: list[int]):
         self.__replace_constant_names_to_random_value(bounds)
-        integral = sympify(self.pattern, evaluate=False)
-        latex_integral = fr'\int {latex(integral)}  \,d{self.symbol}'
+        expression = sympify(self.pattern, evaluate=False)
+        latex_integral = self.wrap_expression_in_latex_integral(expression)
         return latex_integral
 
+    def wrap_expression_in_latex_integral(self, expression: str):
+        return fr'\int {latex(expression)}  \,d{self.symbol}'
 
 if __name__ == '__main__':
     pass
