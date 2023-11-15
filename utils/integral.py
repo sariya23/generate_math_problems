@@ -1,4 +1,4 @@
-from sympy import symbols, latex
+from sympy import symbols, latex, sympify
 from random import randint
 
 
@@ -20,7 +20,8 @@ class Integral:
 
     def generate_latex_integral_expression(self, bounds: list[int]):
         self.__replace_constant_names_to_random_value(bounds)
-        latex_integral = fr'\int {latex(self.pattern)}  \,d{self.symbol}'
+        integral = sympify(self.pattern, evaluate=False)
+        latex_integral = fr'\int {latex(integral)}  \,d{self.symbol}'
         return latex_integral
 
 
