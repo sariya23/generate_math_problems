@@ -3,7 +3,7 @@ from random import randint
 
 
 class Integral:
-    def __init__(self, pattern: str, *constant_names, symbol='x'):
+    def __init__(self, pattern: str, constant_names: list[str], symbol='x'):
         self.pattern = pattern
         self.constant_names = constant_names
         self.symbol = symbols(symbol)
@@ -25,5 +25,4 @@ class Integral:
 
 
 if __name__ == '__main__':
-    a = Integral('a*x', 'a')
-    print(a.generate_integral_expression([1, 100]))
+    pass
