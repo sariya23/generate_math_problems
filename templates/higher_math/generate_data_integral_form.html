@@ -1,0 +1,25 @@
+<form id="dataForm" method="POST" action="/generate_integrals">
+    <div class="mb-3">
+        <label for="dataInput" class="form-label">Введите шаблон математического выражения:</label>
+        <input type="text" class="form-control" name="data" id="dataInput"
+               placeholder="Например: a*x + b - x ** c"
+               required>
+    </div>
+    <div class="mb-3">
+        <label for="constantsInput" class="form-label">Введите литералы констант (через запятую):</label>
+        <input type="text" class="form-control" name="constants" id="constantsInput"
+               placeholder="Например: a,b,c">
+    </div>
+    <div class="mb-3">
+        <label for="boundsInput" class="form-label">Введите граничные значения для констант (через
+            запятую). Значения констант будут от 1 до 100 включительно.</label>
+        <input type="text" class="form-control" name="bounds" id="boundsInput"
+               placeholder="Например: 1,100">
+    </div>
+    <div class="mb-3">
+        <label for="numExpressions" class="form-label">Количество интегралов:</label>
+        <input type="number" class="form-control" name="numExpressions" id="numExpressions"
+               placeholder="Введите количество интегралов" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Сгенерировать интегралы</button>
+</form>
