@@ -1,0 +1,25 @@
+<div id="result" class="mt-3">
+    {% if latex_equations %}
+    {% include 'higher_math/download_integrals_form.html' %}
+    <p>Сгенерированные уравнения в LaTeX:</p>
+    <div class="row">
+        <div class="col-md-6">
+            <ul>
+                {% for i in range(latex_equations|length // 2) %}
+                <li>\[ {{ latex_equations[i] }} \]</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <ul>
+                {% for i in range(latex_equations|length // 2, latex_equations|length) %}
+                <li>\[ {{ latex_equations[i] }} \]</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    {% if error %}
+    <p style="color: red;">Ошибка: {{ error }}</p>
+    {% endif %}
+</div>
