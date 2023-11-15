@@ -8,10 +8,7 @@
             {% include 'higher_math/generate_data_integral_form.html' %}
             <div id="result" class="mt-3">
                 {% if latex_equations %}
-                <form id="downloadForm" method="POST" action="/download_tex">
-                    <input type="hidden" name="latex_equations" value="{{ latex_equations }}">
-                    <button type="submit" class="btn btn-success">Скачать в формате .tex</button>
-                </form>
+                {% include 'higher_math/download_integrals_form.html' %}
                 <p>Сгенерированные уравнения в LaTeX:</p>
                 <div class="row">
                     <div class="col-md-6">
