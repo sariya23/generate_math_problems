@@ -1,11 +1,15 @@
 from flask import Flask, request, send_file, session
 from flask import render_template
+from dotenv import load_dotenv
+
+import os
 
 from utils.integral import Integral
 
 
 app = Flask(__name__)
-app.secret_key = 'qwe'
+app.secret_key = os.environ.get('SESSION_KEY')
+
 
 @app.route('/')
 def hello_world():
