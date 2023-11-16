@@ -1,7 +1,6 @@
 <label for="fileFormatSelect" class="form-label">Выберите формат, в котором скачать задачи</label>
 <form id="downloadForm" method="POST" action="/download">
     <div class="input-group">
-        <input type="hidden" name="latex_equations" value="{{ '|'.join(latex_equations)|safe }}">
         <select class="form-select" name="file_format" id="fileFormatSelect" onchange="submitForm()">
             <option value="pdf">PDF</option>
             <option value="docx">DOCX</option>
