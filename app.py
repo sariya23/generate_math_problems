@@ -1,11 +1,11 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, session
 from flask import render_template
 
 from utils.integral import Integral
 
 
 app = Flask(__name__)
-
+app.secret_key = 'qwe'
 
 @app.route('/')
 def hello_world():
@@ -44,13 +44,13 @@ def generate_integrals():
     constants = request.form.get('constants', '').split(',')
     bounds = list(map(int, request.form.get('bounds', '').split(',')))
     num_expressions = int(request.form.get('numExpressions', 1))
-    latex_equations = []
 
     try:
+        session['generate_integrals'] = []
         for _ in range(num_expressions):
             integral = Integral(data, constants).generate_latex_integral_expression(bounds)
-            latex_equations.append(integral)
-        return render_template('higher_math/integrals.html', latex_equations=latex_equations, error=None)
+            session['generate_integrals'].append(integral)
+        return render_template('higher_math/integrals.html', latex_equations=session['generate_integrals'], error=None)
     except Exception as e:
         return render_template('higher_math/integrals.html', latex_equations=None, error=str(e))
 
@@ -61,16 +61,15 @@ def generate_integrals():
 def download_tex():
     try:
         file_format = request.form.getlist('file_format')[0]
-        latex_equations = request.form.get('latex_equations').split('|')
-        print(request.form, file_format, latex_equations, sep='\n')
+        latex_equations = session['generate_integrals']
         tex_content = ""
         for integral in latex_equations:
             tex_content += f'{integral}\\\\\n'
 
         with open('integrals.tex', 'w') as file:
             file.write(tex_content)
-
         return send_file('integrals.tex', as_attachment=True, download_name='integrals.tex')
+
     except Exception as e:
         return str(e)
 
