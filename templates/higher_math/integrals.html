@@ -9,7 +9,7 @@
             <div id="status">
 
             </div>
-            <form id="dataForm" method="POST" action="/download">
+            <form id="file_format_form" method="POST" action="/download">
                 <div class="mb-3">
                     <label for="fileFormatSelect" class="form-label">Выберите формат файла:</label>
                     <select class="form-select" name="file_format" id="fileFormatSelect">
@@ -24,4 +24,5 @@
     </div>
 </div>
 <script src="{{ url_for('static', filename='js/sendGenerateData.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sendFileFormatData.js') }}"></script>
 {% endblock %}
