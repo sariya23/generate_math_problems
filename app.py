@@ -49,7 +49,6 @@ def generate_integrals():
     constants = data.get('constants', '').split(',')
     bounds = list(map(int, data.get('bounds', '').split(',')))
     num_expressions = int(data.get('numExpressions', 1))
-    file_format = data.get('fileFormat')
 
     try:
         session['generate_integrals'] = []
