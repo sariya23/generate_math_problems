@@ -9,7 +9,7 @@ from utils.integral import Integral
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SESSION_KEY')
-
+app.static_folder = ''
 
 @app.route('/')
 def hello_world():
@@ -44,17 +44,18 @@ def integrals():
 # TODO: добавить обработку ошибок
 @app.route('/generate_integrals', methods=['POST'])
 def generate_integrals():
-    data = request.form.get('data')
-    constants = request.form.get('constants', '').split(',')
-    bounds = list(map(int, request.form.get('bounds', '').split(',')))
-    num_expressions = int(request.form.get('numExpressions', 1))
+    data = request.get_json()
+    pattern = data.get('pattern')
+    constants = data.get('constants', '').split(',')
+    bounds = list(map(int, data.get('bounds', '').split(',')))
+    num_expressions = int(data.get('numExpressions', 1))
 
     try:
         session['generate_integrals'] = []
         for _ in range(num_expressions):
-            integral = Integral(data, constants).generate_latex_integral_expression(bounds)
+            integral = Integral(pattern, constants).generate_latex_integral_expression(bounds)
             session['generate_integrals'].append(integral)
-        return render_template('higher_math/integrals.html', latex_equations=session['generate_integrals'], error=None)
+        return session['generate_integrals']
     except Exception as e:
         return render_template('higher_math/integrals.html', latex_equations=None, error=str(e))
 

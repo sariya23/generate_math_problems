@@ -10,4 +10,34 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var dataForm = document.getElementById('dataForm');
+
+    dataForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var formData = {
+            pattern: document.getElementById('dataInput').value,
+            constants: document.getElementById('constantsInput').value,
+            bounds: document.getElementById('boundsInput').value,
+            numExpressions: document.getElementById('numExpressions').value,
+        };
+        fetch('/generate_integrals', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(function(response) {
+            document.getElementById('result').textContent = response;
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+        });
+    });
+});
+</script>
 {% endblock %}
