@@ -65,7 +65,7 @@ def generate_integrals():
 @app.route('/download', methods=['POST'])
 def download_tex():
     try:
-        file_format = request.form.getlist('file_format')[0]
+        file_format = request.get_json().get('fileFormat')
         latex_equations = session['generate_integrals']
         tex_content = ""
         for integral in latex_equations:
