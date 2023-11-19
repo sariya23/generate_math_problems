@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             constants: document.getElementById('constantsInput').value,
             bounds: document.getElementById('boundsInput').value,
             numExpressions: document.getElementById('numExpressions').value,
+            fileFormat: document.getElementById('fileFormatSelect').value,
         };
         fetch('/generate_integrals', {
             method: 'POST',
