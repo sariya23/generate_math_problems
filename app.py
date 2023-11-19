@@ -51,11 +51,13 @@ def generate_integrals():
     num_expressions = int(data.get('numExpressions', 1))
 
     try:
-        session['generate_integrals'] = []
+        session['generated_latex_integrals'] = []
+        session['generated_pure_integrals']  = []
         for _ in range(num_expressions):
-            integral = Integral(pattern, constants).generate_latex_integral_expression(bounds)
-            session['generate_integrals'].append(integral)
-        return session['generate_integrals']
+            latex_integral, integral = Integral(pattern, constants).generate_latex_and_pure_integral_expression(bounds)
+            session['generated_latex_integrals'].append(latex_integral)
+            session['generated_pure_integrals'].append(integral)
+        return session['generated_latex_integrals']
     except Exception as e:
         return render_template('higher_math/integrals.html', latex_equations=None, error=str(e))
 
