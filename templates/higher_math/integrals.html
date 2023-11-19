@@ -6,7 +6,20 @@
     <div class="row mt-5">
         <div class="col-md-6 mx-auto">
             {% include 'higher_math/generate_data_integral_form.html' %}
-            {% include 'higher_math/list_of_expression.html' %}
+            <div id="status">
+
+            </div>
+            <form id="dataForm" method="POST" action="/download">
+                <div class="mb-3">
+                    <label for="fileFormatSelect" class="form-label">Выберите формат файла:</label>
+                    <select class="form-select" name="file_format" id="fileFormatSelect">
+                        <option value="pdf">PDF</option>
+                        <option value="docx">DOCX</option>
+                        <option value="tex">TEX</option>
+                    </select>
+                    <button type="button" class="btn btn-success mt-3">Скачать в выбранном формате</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -33,10 +46,10 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(function(response) {
-            document.getElementById('result').textContent = response;
+            document.getElementById('status').textContent = 'Генерация выполнена успешано!';
         })
         .catch(function(error) {
-            alert('Ошибка генерации. Введите корректные значения');
+            document.getElementById('status').textContent = 'Что-то пошло не так! Проверьте формат данных в форме';
         });
     });
 });
