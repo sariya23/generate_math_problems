@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(function(response) {
-            document.getElementById('status').textContent = 'Генерация выполнена успешано!';
+            document.getElementById('status').textContent = 'Генерация выполнена успешно!';
         })
         .catch(function(error) {
             document.getElementById('status').textContent = 'Что-то пошло не так! Проверьте формат данных в форме';
