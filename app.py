@@ -9,7 +9,7 @@ from utils.integral import Integral
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SESSION_KEY')
-app.static_folder = ''
+app.static_folder = 'static'
 
 @app.route('/')
 def hello_world():
