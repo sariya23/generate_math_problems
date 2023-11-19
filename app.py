@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file, session
+from flask import Flask, request, send_file, session, url_for
 from flask import render_template
 from dotenv import load_dotenv
 
@@ -60,8 +60,6 @@ def generate_integrals():
         return render_template('higher_math/integrals.html', latex_equations=None, error=str(e))
 
 
-# TODO: Конвертировать .tex in .pdf
-# TODO: вынести в отдельную функцию.
 @app.route('/download', methods=['POST'])
 def download_tex():
     try:
@@ -71,9 +69,13 @@ def download_tex():
         for integral in latex_equations:
             tex_content += f'{integral}\\\\\n'
 
-        with open('integrals.tex', 'w') as file:
+        with open('static/generated_files/integrals.tex', 'w') as file:
             file.write(tex_content)
-        return send_file('integrals.tex', as_attachment=True, download_name='integrals.tex')
+        response_data = {
+            'path': url_for('static', filename='generated_files/integrals.tex'),
+            'extension': 'tex',
+        }
+        return response_data
 
     except Exception as e:
         return {'error': 'File not found'}, 404
