@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(function(response) {
             document.getElementById('status').textContent = 'Генерация выполнена успешно!';
+            document.getElementById('submit_file_format_data').removeAttribute('disabled')
             console.log(response)
         })
         .catch(function(error) {
