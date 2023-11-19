@@ -76,7 +76,7 @@ def download_tex():
         return send_file('integrals.tex', as_attachment=True, download_name='integrals.tex')
 
     except Exception as e:
-        return str(e)
+        return {'error': 'File not found'}, 404
 
 
 @app.route('/higher_math/derivatives')
