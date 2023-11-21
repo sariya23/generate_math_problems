@@ -7,7 +7,7 @@ import os
 from utils.integral import Integral
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.secret_key = os.environ.get('SESSION_KEY')
 app.static_folder = 'static'
 
@@ -66,7 +66,7 @@ def generate_integrals():
 def download_tex():
     try:
         file_format = request.get_json().get('fileFormat')
-        latex_equations = session['generate_integrals']
+        latex_equations = session['generated_latex_integrals']
         tex_content = ""
         for integral in latex_equations:
             tex_content += f'{integral}\\\\\n'
@@ -79,7 +79,7 @@ def download_tex():
         }
         return response_data
 
-    except Exception as e:
+    except FileNotFoundError as e:
         return {'error': 'File not found'}, 404
 
 
