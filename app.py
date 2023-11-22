@@ -73,7 +73,6 @@ def download_tex():
         create_file = CreateFile(session['generated_pure_integrals'])
         create_file.generate_pdf_tex_file_with_expressions(
             file_name='expressions',
-            is_pure_input=False,
             title_for_document='SOLVE IT NOW!!!',
             type_of_expression='integral'
         )
@@ -101,9 +100,8 @@ def get_answers():
         for integral_expression in session['generated_pure_integrals']:
             answers.append(f'{Integral.solve_integral(integral_expression)}\n')
         create_file = CreateFile(answers)
-        create_file.generate_pdf_tex_file_with_expressions(
+        create_file.generate_pdf_tex_file_with_pure_expression(
             file_name='answers',
-            is_pure_input=True,
             title_for_document='ANSWERS !!!'
         )
 
