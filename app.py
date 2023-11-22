@@ -91,7 +91,7 @@ def get_answers():
         answers = ''
         
         for integral_expression in session['generated_pure_integrals']:
-            answers += f'{Integral.solve_integral(integral_expression)}\\\\n'
+            answers += f'{Integral.solve_integral(integral_expression)}\n'
 
         with open('static/generated_files/answers.tex', 'w') as file:
             file.write(answers)
