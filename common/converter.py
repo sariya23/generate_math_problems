@@ -7,7 +7,7 @@ class CreateFile:
         self.file_format = file_format
     
     
-    def create_tex(self):
+    def generate_pdf_tex(self):
         geometry_options = {"tmargin": "1cm", "lmargin": "10cm"}
         doc = Document(geometry_options=geometry_options)
 
@@ -25,4 +25,4 @@ class CreateFile:
 
 if __name__ == '__main__':
     a = CreateFile(['16*x^3/3', '2*x'])
-    a.create_tex()
+    a.generate_pdf_tex()
