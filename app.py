@@ -74,7 +74,8 @@ def download_tex():
         create_file.generate_pdf_tex_file_with_expressions(
             file_name='expressions',
             is_pure_input=False,
-            title_for_document='SOLVE IT NOW!!!'
+            title_for_document='SOLVE IT NOW!!!',
+            type_of_expression='integral'
         )
 
         if file_format == 'pdf':

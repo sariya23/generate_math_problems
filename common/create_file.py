@@ -2,10 +2,20 @@ from pylatex import Document, Section, Math, Center, MiniPage, NoEscape, Horizon
 
 
 class CreateFile:
+    MATH_EXPRESSION_FUNCTION_WRAPPER = {
+        'integral': lambda expression: fr'\int{expression}\,dx'
+    }
+
     def __init__(self, data: list[str]):
         self.data = data
     
-    def generate_pdf_tex_file_with_expressions(self, file_name: str, is_pure_input: bool, title_for_document: str):
+    def generate_pdf_tex_file_with_expressions(
+        self,
+        file_name: str,
+        is_pure_input: bool,
+        title_for_document: str,
+        type_of_expression: str,
+    ):
         geometry_options = {"tmargin": "1cm"}
         doc = Document(geometry_options=geometry_options)
 
@@ -20,7 +30,13 @@ class CreateFile:
                 if is_pure_input:
                     minipage.append(Math(data=fr'{expression}', inline=True, escape=False))
                 else:
-                    minipage.append(Math(data=fr'\int{expression},dx', inline=True, escape=False))
+                    minipage.append(
+                        Math(
+                            data=self.MATH_EXPRESSION_FUNCTION_WRAPPER[type_of_expression](expression),
+                            inline=True,
+                            escape=False
+                        )
+                    )
                 
                 if index % 2 == 0:
                     minipage.append(HorizontalSpace(f'{(len(expression) + len(str(index))) * 3}pt'))
