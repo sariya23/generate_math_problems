@@ -20,7 +20,7 @@ class CreateFile:
                 minipage.append(Math(data=fr'\int{expression},dx', inline=True, escape=False))
                 minipage.append(NoEscape(r'\\'))
                 minipage.append(NoEscape(r'\\'))
-        doc.generate_pdf('full', clean_tex=False)
+        doc.generate_pdf('/home/nikita/dev/generate_math_problems/static/generated_files/full', clean_tex=False)
 
 
 if __name__ == '__main__':
