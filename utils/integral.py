@@ -1,4 +1,4 @@
-from sympy import symbols, latex, sympify
+from sympy import symbols, latex, sympify, integrate
 from random import randint
 
 
@@ -26,6 +26,13 @@ class Integral:
 
     def wrap_expression_in_latex_integral(self, expression: str):
         return fr'\int {latex(expression)}  \,d{self.symbol}'
+
+    @classmethod
+    def solve_integral(cls, math_expression: str):
+        x = symbols('x')
+        expression = sympify(math_expression)
+
+        return integrate(expression, x)
 
 if __name__ == '__main__':
     pass
