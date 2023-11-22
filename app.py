@@ -87,7 +87,6 @@ def download_tex():
 
 @app.route('/get_answers', methods=['POST'])
 def get_answers():
-    print(request.get_json())
     try:
         answer_file_format = request.get_json().get('fileFormat')
         answers = '1\n2\n\3'
