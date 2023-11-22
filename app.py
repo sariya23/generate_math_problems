@@ -88,13 +88,13 @@ def download_tex():
 def get_answers():
     try:
         answer_file_format = request.get_json().get('fileFormat')
-        answers = ''
+        answers = []
         
         for integral_expression in session['generated_pure_integrals']:
-            answers += f'{Integral.solve_integral(integral_expression)}\n'
+            answers.append(f'{Integral.solve_integral(integral_expression)}\n')
 
         with open('static/generated_files/answers.tex', 'w') as file:
-            file.write(answers)
+            file.writelines(answers)
         
         response_data = {
             'path': url_for('static', filename='generated_files/answers.tex'),
