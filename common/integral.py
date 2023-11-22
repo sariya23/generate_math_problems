@@ -14,7 +14,7 @@ class Integral:
         return self.pattern
 
     def generate_integral_expression(self, bounds: list[int]):
-        self.__replace_constant_names_to_random_value(bounds)
+        self.pattern = self.__replace_constant_names_to_random_value(bounds)
         integral = self.pattern
         return integral
 
