@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import os
 
 from common.integral import Integral
+from common.converter import CreateFile
 
 
 app = Flask(__name__, static_url_path='/static')
@@ -68,16 +69,18 @@ def generate_integrals():
 def download_tex():
     try:
         file_format = request.get_json().get('fileFormat')
-        latex_equations = session['generated_latex_integrals']
         tex_content = ""
-        for integral in latex_equations:
-            tex_content += f'{integral}\\\\\n'
-        with open('static/generated_files/integrals.tex', 'w') as file:
-            file.write(tex_content)
-        response_data = {
-            'path': url_for('static', filename='generated_files/integrals.tex'),
-            'extension': 'tex',
-        }
+        create_file = CreateFile(session['generated_pure_integrals'])
+        create_file.generate_pdf_tex()
+
+        if file_format == 'pdf':
+            response_data = {
+                'path': url_for('static', filename='generated_files/full.pdf'),
+            }
+        else:
+            response_data = {
+                'path': url_for('static', filename='generated_files/full.tex'),
+            }         
         return response_data
 
     except FileNotFoundError as e:
