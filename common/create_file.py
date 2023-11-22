@@ -5,7 +5,7 @@ class CreateFile:
     def __init__(self, data: list[str]):
         self.data = data
     
-    def generate_pdf_tex(self):
+    def generate_pdf_tex_expressions(self, file_name: str):
         geometry_options = {"tmargin": "1cm", "lmargin": "10cm"}
         doc = Document(geometry_options=geometry_options)
 
@@ -18,7 +18,22 @@ class CreateFile:
                 minipage.append(Math(data=fr'\int{expression},dx', inline=True, escape=False))
                 minipage.append(NoEscape(r'\\'))
                 minipage.append(NoEscape(r'\\'))
-        doc.generate_pdf('/home/nikita/dev/generate_math_problems/static/generated_files/full', clean_tex=False)
+        doc.generate_pdf(f'/home/nikita/dev/generate_math_problems/static/generated_files/{file_name}', clean_tex=False)
+    
+    def generate_pdf_tex_answers(self, file_name):
+        geometry_options = {"tmargin": "1cm", "lmargin": "10cm"}
+        doc = Document(geometry_options=geometry_options)
+
+        with doc.create(Center()) as center:
+            with center.create(Section('ANSWERS!!!')) as section:
+                 section.numbering = None
+
+        with doc.create(MiniPage(align='left')) as minipage:
+            for expression in self.data:
+                minipage.append(Math(data=fr'{expression}', inline=True, escape=False))
+                minipage.append(NoEscape(r'\\'))
+                minipage.append(NoEscape(r'\\'))
+        doc.generate_pdf(f'/home/nikita/dev/generate_math_problems/static/generated_files/{file_name}', clean_tex=False)
 
 
 if __name__ == '__main__':

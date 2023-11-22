@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 
 from common.integral import Integral
-from common.converter import CreateFile
+from common.create_file import CreateFile
 
 
 app = Flask(__name__, static_url_path='/static')
@@ -71,15 +71,15 @@ def download_tex():
         file_format = request.get_json().get('fileFormat')
         tex_content = ""
         create_file = CreateFile(session['generated_pure_integrals'])
-        create_file.generate_pdf_tex()
+        create_file.generate_pdf_tex_expressions(file_name='expressions')
 
         if file_format == 'pdf':
             response_data = {
-                'path': url_for('static', filename='generated_files/full.pdf'),
+                'path': url_for('static', filename='generated_files/expressions.pdf'),
             }
         else:
             response_data = {
-                'path': url_for('static', filename='generated_files/full.tex'),
+                'path': url_for('static', filename='generated_files/expressions.tex'),
             }         
         return response_data
 
@@ -90,18 +90,23 @@ def download_tex():
 @app.route('/get_answers', methods=['POST'])
 def get_answers():
     try:
-        answer_file_format = request.get_json().get('fileFormat')
+        file_format = request.get_json().get('fileFormat')
         answers = []
         
         for integral_expression in session['generated_pure_integrals']:
             answers.append(f'{Integral.solve_integral(integral_expression)}\n')
+        print(answers)
+        create_file = CreateFile(answers)
+        create_file.generate_pdf_tex_answers('answers')
 
-        with open('static/generated_files/answers.tex', 'w') as file:
-            file.writelines(answers)
-        
-        response_data = {
-            'path': url_for('static', filename='generated_files/answers.tex'),
-        }
+        if file_format == 'pdf':
+            response_data = {
+                'path': url_for('static', filename='generated_files/answers.pdf'),
+            }
+        else:
+            response_data = {
+                'path': url_for('static', filename='generated_files/answers.tex'),
+            }   
         return response_data
 
     except Exception as e:
