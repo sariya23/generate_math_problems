@@ -41,6 +41,8 @@ def integrals():
     return render_template('higher_math/integrals.html')
 
 
+
+# TODO: сделать это общей функцией. И для интегралов и для производны и тд и тп.
 # TODO: добавить обработку ошибок
 @app.route('/generate_integrals', methods=['POST'])
 def generate_integrals():
@@ -82,6 +84,25 @@ def download_tex():
     except FileNotFoundError as e:
         return {'error': 'File not found'}, 404
 
+
+@app.route('/get_answers', methods=['POST'])
+def get_answers():
+    print(request.get_json())
+    try:
+        answer_file_format = request.get_json().get('fileFormat')
+        answers = '1\n2\n\3'
+
+        with open('static/generated_files/answers.tex', 'w') as file:
+            file.write(answers)
+        
+        response_data = {
+            'path': url_for('static', filename='generated_files/answers.tex'),
+        }
+        
+        return response_data
+
+    except Exception as e:
+        return {'error': f'Smth go wrong! {str(e)}'}, 500
 
 @app.route('/higher_math/derivatives')
 def derivatives():
