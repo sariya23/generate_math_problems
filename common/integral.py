@@ -19,7 +19,7 @@ class Integral:
         return integral
 
     def generate_latex_and_pure_integral_expression(self, bounds: list[int]):
-        self.__replace_constant_names_to_random_value(bounds)
+        self.pattern = self.__replace_constant_names_to_random_value(bounds)
         expression = sympify(self.pattern, evaluate=False)
         latex_integral = self.wrap_expression_in_latex_integral(expression)
         return latex_integral, self.pattern
