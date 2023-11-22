@@ -72,7 +72,6 @@ def download_tex():
         tex_content = ""
         for integral in latex_equations:
             tex_content += f'{integral}\\\\\n'
-
         with open('static/generated_files/integrals.tex', 'w') as file:
             file.write(tex_content)
         response_data = {
@@ -89,7 +88,10 @@ def download_tex():
 def get_answers():
     try:
         answer_file_format = request.get_json().get('fileFormat')
-        answers = '1\n2\n\3'
+        answers = ''
+        
+        for integral_expression in session['generated_pure_integrals']:
+            answers += f'{Integral.solve_integral(integral_expression)}\\\\n'
 
         with open('static/generated_files/answers.tex', 'w') as file:
             file.write(answers)
@@ -97,10 +99,10 @@ def get_answers():
         response_data = {
             'path': url_for('static', filename='generated_files/answers.tex'),
         }
-        
         return response_data
 
     except Exception as e:
+        print(str(e))
         return {'error': f'Smth go wrong! {str(e)}'}, 500
 
 @app.route('/higher_math/derivatives')
