@@ -2,10 +2,8 @@ from pylatex import Document, Section, Math, Center, MiniPage, NoEscape
 
 
 class CreateFile:
-    def __init__(self, data: list[str], file_format: str = 'tex'):
+    def __init__(self, data: list[str]):
         self.data = data
-        self.file_format = file_format
-    
     
     def generate_pdf_tex(self):
         geometry_options = {"tmargin": "1cm", "lmargin": "10cm"}
