@@ -1,4 +1,4 @@
-from pylatex import Document, Section, Math, Center, MiniPage, NoEscape
+from pylatex import Document, Section, Math, Center, MiniPage, NoEscape, HorizontalSpace
 
 
 class CreateFile:
@@ -14,10 +14,14 @@ class CreateFile:
                  section.numbering = None
 
         with doc.create(MiniPage(align='left')) as minipage:
-            for expression in self.data:
+            for index, expression in enumerate(self.data):
+                minipage.append(NoEscape(fr'{index + 1}) '))
                 minipage.append(Math(data=fr'\int{expression},dx', inline=True, escape=False))
-                minipage.append(NoEscape(r'\\'))
-                minipage.append(NoEscape(r'\\'))
+                if index % 2 == 0:
+                    minipage.append(HorizontalSpace('30pt'))
+                else:
+                    minipage.append(NoEscape(r'\\'))
+                    minipage.append(NoEscape(r'\\'))
         doc.generate_pdf(f'/home/nikita/dev/generate_math_problems/static/generated_files/{file_name}', clean_tex=False)
     
     def generate_pdf_tex_answers(self, file_name):
@@ -29,10 +33,14 @@ class CreateFile:
                  section.numbering = None
 
         with doc.create(MiniPage(align='left')) as minipage:
-            for expression in self.data:
+            for index, expression in enumerate(self.data):
+                minipage.append(NoEscape(fr'{index + 1}) '))
                 minipage.append(Math(data=fr'{expression}', inline=True, escape=False))
-                minipage.append(NoEscape(r'\\'))
-                minipage.append(NoEscape(r'\\'))
+                if index % 2 == 0:
+                    minipage.append(HorizontalSpace('30pt'))
+                else:
+                    minipage.append(NoEscape(r'\\'))
+                    minipage.append(NoEscape(r'\\'))
         doc.generate_pdf(f'/home/nikita/dev/generate_math_problems/static/generated_files/{file_name}', clean_tex=False)
 
 
