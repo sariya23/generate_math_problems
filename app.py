@@ -71,7 +71,11 @@ def download_tex():
         file_format = request.get_json().get('fileFormat')
         tex_content = ""
         create_file = CreateFile(session['generated_pure_integrals'])
-        create_file.generate_pdf_tex_expressions(file_name='expressions')
+        create_file.generate_pdf_tex_file_with_expressions(
+            file_name='expressions',
+            is_pure_input=False,
+            title_for_document='SOLVE IT NOW!!!'
+        )
 
         if file_format == 'pdf':
             response_data = {
@@ -95,9 +99,12 @@ def get_answers():
         
         for integral_expression in session['generated_pure_integrals']:
             answers.append(f'{Integral.solve_integral(integral_expression)}\n')
-        print(answers)
         create_file = CreateFile(answers)
-        create_file.generate_pdf_tex_answers('answers')
+        create_file.generate_pdf_tex_file_with_expressions(
+            file_name='answers',
+            is_pure_input=True,
+            title_for_document='ANSWERS !!!'
+        )
 
         if file_format == 'pdf':
             response_data = {
