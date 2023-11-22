@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 import os
 
-from utils.integral import Integral
+from common.integral import Integral
 
 
 app = Flask(__name__, static_url_path='/static')
