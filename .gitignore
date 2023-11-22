@@ -3,3 +3,7 @@
 __pycache__
 .env
 static/generated_files
+*.aux
+*.log
+*.pdf
+*.tex
