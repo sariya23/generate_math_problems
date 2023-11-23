@@ -52,7 +52,7 @@ class CreateFile:
             for index, expression in enumerate(self.data):
                 minipage.append(NoEscape(fr'{index + 1}) '))
 
-                minipage.append(Math(data=fr'{expression}', inline=True, escape=False))
+                minipage.append(Math(data=fr'{expression} + C', inline=True, escape=False))
 
                 if index % 2 == 0:
                     minipage.append(HorizontalSpace(f'{(len(expression) + len(str(index))) * 3}pt'))
