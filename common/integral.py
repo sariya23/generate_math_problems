@@ -23,6 +23,7 @@ class Integral:
         return latex(sympify(self.pattern, evaluate=False))
 
     def generate_latex_and_pure_integral_expression(self, bounds: list[int]):
+        x = symbols('x')
         self.pattern = self.__replace_constant_names_to_random_value(bounds)
         expression = sympify(self.pattern, evaluate=False)
         latex_integral = latex(expression)
