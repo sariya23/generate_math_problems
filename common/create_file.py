@@ -27,7 +27,7 @@ class CreateFile:
                 minipage.append(NoEscape(fr'{index + 1}) '))
                 minipage.append(
                     Math(
-                        data=self.MATH_EXPRESSION_FUNCTION_WRAPPER[type_of_expression](expression),
+                        data=[self.MATH_EXPRESSION_FUNCTION_WRAPPER[type_of_expression](expression)],
                         inline=True,
                         escape=False
                     )
