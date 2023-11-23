@@ -55,11 +55,11 @@ def generate_integrals():
 
     try:
         session['generated_integrals_in_latex']  = []
-        session['generateed_integral_in_string'] = []
+        session['generated_integrals_in_string'] = []
         for _ in range(num_expressions):
             latex_integral, string_integral = Integral(pattern, constants).generate_latex_and_pure_integral_expression(bounds)
             session['generated_integrals_in_latex'].append(latex_integral)
-            session['generateed_integral_in_string'].append(string_integral)
+            session['generated_integrals_in_string'].append(string_integral)
         return {'status': 'ok'}
     except Exception as e:
         return {'error': str(e)}
@@ -97,7 +97,7 @@ def get_answers():
         file_format = request.get_json().get('fileFormat')
         answers = []
         
-        for integral_expression in session['generateed_integral_in_string']:
+        for integral_expression in session['generated_integrals_in_string']:
             answers.append(f'{Integral.solve_integral(integral_expression)}\n')
         create_file = CreateFile(answers)
         create_file.generate_pdf_tex_file_with_pure_expression(
