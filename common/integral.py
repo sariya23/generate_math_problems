@@ -32,7 +32,7 @@ class Integral:
         x = symbols('x')
         expression = sympify(math_expression)
 
-        return integrate(expression, x)
+        return latex(integrate(expression, x))
 
 if __name__ == '__main__':
     pass
