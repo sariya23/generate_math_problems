@@ -54,11 +54,13 @@ def generate_integrals():
     num_expressions = int(data.get('numExpressions', 1))
 
     try:
-        session['generated_pure_integrals']  = []
+        session['generated_integrals_in_latex']  = []
+        session['generateed_integral_in_string'] = []
         for _ in range(num_expressions):
-            integral = Integral(pattern, constants).generate_integral_expression(bounds)
-            session['generated_pure_integrals'].append(integral)
-        return session['generated_pure_integrals']
+            latex_integral, string_integral = Integral(pattern, constants).generate_latex_and_pure_integral_expression(bounds)
+            session['generated_integrals_in_latex'].append(latex_integral)
+            session['generateed_integral_in_string'].append(string_integral)
+        return {'status': 'ok'}
     except Exception as e:
         return {'error': str(e)}
 
@@ -68,7 +70,7 @@ def download_tex():
     try:
         file_format = request.get_json().get('fileFormat')
         tex_content = ""
-        create_file = CreateFile(session['generated_pure_integrals'])
+        create_file = CreateFile(session['generated_integrals_in_latex'])
         create_file.generate_pdf_tex_file_with_expressions(
             file_name='expressions',
             title_for_document='SOLVE IT NOW!!!',
@@ -95,7 +97,7 @@ def get_answers():
         file_format = request.get_json().get('fileFormat')
         answers = []
         
-        for integral_expression in session['generated_pure_integrals']:
+        for integral_expression in session['generateed_integral_in_string']:
             answers.append(f'{Integral.solve_integral(integral_expression)}\n')
         create_file = CreateFile(answers)
         create_file.generate_pdf_tex_file_with_pure_expression(

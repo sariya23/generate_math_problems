@@ -34,6 +34,7 @@ class Integral:
     @classmethod
     def solve_integral(cls, math_expression: str):
         x = symbols('x')
+        print(math_expression)
         expression = sympify(math_expression)
 
         return latex(integrate(expression, x))
