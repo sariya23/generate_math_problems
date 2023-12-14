@@ -5,6 +5,7 @@ import os
 
 from common.integral import Integral
 from common.create_file import CreateFile
+from utils import get_bounds_for_generated_constants
 
 
 app = Flask(__name__, static_url_path='/static')
@@ -29,16 +30,17 @@ def integrals():
 
 @app.route('/generate_integrals', methods=['POST'])
 def generate_integrals():
-    data = request.get_json()
-    pattern = data.get('pattern')
-    constants = data.get('constants', '').split(',')
-    bounds = list(map(int, data.get('bounds', '').split(',')))
-    num_expressions = int(data.get('numExpressions', 1))
+    form_data = request.get_json()
+    pattern_generate = form_data.get('pattern')
+    constant_names = form_data.get('constants', '').split(',')
+    start_end_generate_constant_values = form_data.get('bounds', '')
+    bounds = get_bounds_for_generated_constants(start_end_generate_constant_values)
+    amount_of_expression = int(form_data.get('numExpressions', 1))
 
     try:
         session['generated_integrals_in_latex'] = []
-        for _ in range(num_expressions):
-            latex_integral = Integral(pattern, constants).generate_integral_latex_expression(bounds)
+        for _ in range(amount_of_expression):
+            latex_integral = Integral(pattern_generate, constant_names).generate_integral_latex_expression(bounds)
             session['generated_integrals_in_latex'].append(latex_integral)
         return {'status': 'ok'}
     except Exception as e:
