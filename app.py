@@ -1,6 +1,5 @@
-from flask import Flask, request, send_file, session, url_for
+from flask import Flask, request, session, url_for
 from flask import render_template
-from dotenv import load_dotenv
 
 import os
 
