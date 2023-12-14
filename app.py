@@ -51,8 +51,8 @@ def generate_integrals():
 def download():
     try:
         file_format = request.get_json().get('fileFormat')
-        create_file = CreateFile(session['generated_integrals_in_latex'])
-        create_file.generate_pdf_tex_file_with_expressions(
+        file_creator = CreateFile(session['generated_integrals_in_latex'])
+        file_creator.generate_pdf_tex_file_with_expressions(
             file_name='expressions',
             title_for_document='SOLVE IT NOW!!!',
             type_of_expression='integral'
