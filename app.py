@@ -17,6 +17,11 @@ def hello_world():
     return render_template('index.html')
 
 
+@app.route('/theory')
+def theory():
+    pass
+
+
 @app.route('/higher_math/integrals')
 def integrals():
     return render_template('higher_math/integrals.html')
