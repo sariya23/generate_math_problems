@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(function(jsonData) {
             // Создаем ссылку для скачивания файла
-            document.getElementById('get_answers').removeAttribute('disabled')
             var a = document.createElement('a');
             a.href = jsonData.path;
             console.log(jsonData.path)
