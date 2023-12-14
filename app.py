@@ -31,12 +31,10 @@ def generate_integrals():
     num_expressions = int(data.get('numExpressions', 1))
 
     try:
-        session['generated_integrals_in_latex']  = []
-        session['generated_integrals_in_string'] = []
+        session['generated_integrals_in_latex'] = []
         for _ in range(num_expressions):
-            latex_integral, string_integral = Integral(pattern, constants).generate_latex_and_pure_integral_expression(bounds)
+            latex_integral = Integral(pattern, constants).generate_integral_latex_expression(bounds)
             session['generated_integrals_in_latex'].append(latex_integral)
-            session['generated_integrals_in_string'].append(string_integral)
         return {'status': 'ok'}
     except Exception as e:
         return {'error': str(e)}
@@ -46,7 +44,6 @@ def generate_integrals():
 def download():
     try:
         file_format = request.get_json().get('fileFormat')
-        tex_content = ""
         create_file = CreateFile(session['generated_integrals_in_latex'])
         create_file.generate_pdf_tex_file_with_expressions(
             file_name='expressions',

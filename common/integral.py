@@ -20,7 +20,8 @@ class Integral:
 
     def generate_integral_latex_expression(self, bounds):
         self.pattern = self.__replace_constant_names_to_random_value(bounds)
-        return latex(sympify(self.pattern, evaluate=False))
+        expression = sympify(self.pattern, evaluate=False)
+        return latex(sympify(expression, evaluate=False))
 
     def generate_latex_and_pure_integral_expression(self, bounds: list[int]):
         x = symbols('x')
