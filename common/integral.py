@@ -1,6 +1,8 @@
 from sympy import symbols, latex, sympify, integrate
 from random import randint
 
+from common.bounds import Bounds
+
 
 class Integral:
     def __init__(self, pattern: str, constant_names: list[str], symbol='x'):
@@ -8,38 +10,12 @@ class Integral:
         self.constant_names = constant_names
         self.symbol = symbols(symbol)
 
-    def __replace_constant_names_to_random_value(self, bounds: list[int]):
+    def __replace_constant_names_to_random_value(self, bounds: Bounds) -> str:
         for i, constant in enumerate(self.constant_names):
-            self.pattern = self.pattern.replace(constant, str(randint(*bounds)))
+            self.pattern = self.pattern.replace(constant, str(randint(bounds.start_value, bounds.end_value)))
         return self.pattern
 
-    def generate_integral_expression(self, bounds: list[int]):
-        self.pattern = self.__replace_constant_names_to_random_value(bounds)
-        integral = self.pattern
-        return integral
-
-    def generate_integral_latex_expression(self, bounds):
+    def generate_integral_latex_expression(self, bounds: Bounds) -> str:
         self.pattern = self.__replace_constant_names_to_random_value(bounds)
         expression = sympify(self.pattern, evaluate=False)
         return latex(sympify(expression, evaluate=False))
-
-    def generate_latex_and_pure_integral_expression(self, bounds: list[int]):
-        x = symbols('x')
-        self.pattern = self.__replace_constant_names_to_random_value(bounds)
-        expression = sympify(self.pattern, evaluate=False)
-        latex_integral = latex(expression)
-        return latex_integral, self.pattern
-
-    def wrap_expression_in_latex_integral(self, expression: str):
-        return fr'\int {latex(expression)}  \,d{self.symbol}'
-
-    @classmethod
-    def solve_integral(cls, math_expression: str):
-        x = symbols('x')
-        print(math_expression)
-        expression = sympify(math_expression)
-
-        return latex(integrate(expression, x))
-
-if __name__ == '__main__':
-    pass
