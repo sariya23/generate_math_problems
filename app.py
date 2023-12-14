@@ -12,6 +12,7 @@ app = Flask(__name__, static_url_path='/static')
 app.secret_key = os.environ.get('SESSION_KEY')
 app.static_folder = 'static'
 
+
 @app.route('/')
 def hello_world():
     return render_template('index.html')
@@ -20,7 +21,6 @@ def hello_world():
 @app.route('/higher_math/integrals')
 def integrals():
     return render_template('higher_math/integrals.html')
-
 
 
 @app.route('/generate_integrals', methods=['POST'])
@@ -44,7 +44,7 @@ def generate_integrals():
 
 
 @app.route('/download', methods=['POST'])
-def download_tex():
+def download():
     try:
         file_format = request.get_json().get('fileFormat')
         tex_content = ""
